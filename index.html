@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>立方体</title>
+		<style>
+			html{
+				background-image: url(img/timg.jpg);
+				background-size: 100%;
+				background-repeat: no-repeat;
+			}
+			#waimiande{
+				width: 650px;
+				height: 200px;
+				/*改变左右上下,图片方块移动*/
+				margin: 150px 360px;
+				position: relative;
+			}
+			#limiande{
+				width: 200px;
+				height: 200px;
+				margin: 0 auto;
+				transform-style: preserve-3d;
+				transform: rotateX(-60deg) rotateY(-60deg);
+			}
+			.bif{
+				position: absolute;
+				width: 200px;
+				height: 200px;
+				opacity: 0.8;
+				transition:all .4s;
+			}
+			.bif img{
+				width: 200px;
+				height: 200px;
+			}
+			.sif{
+				display: block;
+				height: 100px;
+				width: 100px;
+				position: absolute;
+				top: 50px;
+				left: 50px;
+			}
+			.sif img{
+				width: 100px;
+				height: 100px;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var degs = 90;
+				var num = 0;
+				var all = document.getElementById("limiande");
+				var small = document.getElementsByClassName("sif");
+				var big = document.getElementsByClassName("bif");
+				console.log(big);
+				//排列大小盒子的前后左右四个面
+				for(var i = 0; i<big.length-2;i++){
+					big[i].style.transform = "rotateY("+i*degs+"deg) translateZ(100px)";
+					small[i].style.transform = "rotateY("+i*degs+"deg) translateZ(50px)"
+				}
+				//排列大小盒子上下的两个面
+				num = big.length-2;
+				for(var i = num; i< big.length;i++){
+					if(i%2 == 0){
+						big[i].style.transform = "rotateX(270deg) translateZ(100px)";
+						small[i].style.transform = "rotateX(270deg) translateZ(50px)";
+						
+					}else{
+						big[i].style.transform = "rotateX(90deg) translateZ(100px)";
+						small[i].style.transform = "rotateX(90deg) translateZ(50px)";
+					}
+				}
+				//让总体盒子选装
+				var rota = -60;
+				var active =  function(){
+					if (rota <= 360) {
+						rota += 0.05;
+						all.style.transform = "rotateX("+rota+"deg) rotateY("+rota+"deg)";
+					
+				}else{
+					 rota = 0;
+			            container.style.transform= "rotateX("+rota+"deg) rotateY("+rota+"deg)";
+					}
+				}
+				/*开启计时器 让active函数延迟0.5S循环调用 没4ms调用一次*/
+				setTimeout(function(){setInterval(active, 4);},500);
+			/*鼠标进入事件*/
+			all.onmouseover = function(){
+				setall(200);
+			}
+			/*鼠标离开时间*/
+			all.onmouseout = function(){
+				setall(100);
+			}
+				/*封装函数*/
+				function setall(even){
+					for(var i = 0; i<big.length-2;i++){
+						big[i].style.transform = "rotateY("+i*degs+"deg) translateZ("+even+"px)";
+					}
+					num = big.length-2;
+					for(var i = num; i< big.length;i++){
+						if(i%2 == 0){
+							big[i].style.transform = "rotateX(270deg) translateZ("+even+"px)";
+						}else{
+							big[i].style.transform = "rotateX(90deg) translateZ("+even+"px)";
+						}
+					}
+				}
+}
+		</script>
+	</head>
+	<body>
+		<div id="waimiande">
+			<div id="limiande">
+				<!--大正方体-->
+				<div  class="bif">
+					<img src="img/001.jpg" />
+				</div>
+				<div class="bif">
+					<img src="img/002.jpg" />
+				</div>
+				<div class="bif">
+					<img src="img/003.jpg" />
+				</div>
+				<div class="bif">
+					<img src="img/004.jpg" />
+				</div>
+				<div class="bif">
+					<img src="img/005.jpg" />
+				</div>
+				<div class="bif">
+					<img src="img/006.jpg" />
+				</div>
+				<!--小正方体-->
+				<span  class="sif">
+					<img src="img/06.jpg" />
+				</span>
+				<span  class="sif">
+					<img src="img/05.jpg" />
+				</span>
+				<span  class="sif">
+					<img src="img/04.jpg"  />
+				</span>
+				<span  class="sif">
+					<img src="img/03.jpg" />
+				</span> 
+				<span  class="sif">
+					<img src="img/02.jpg" />
+				</span>
+				<span  class="sif">
+					<img src="img/01.jpg" />
+				</span>
+			</div>
+		</div>
+	</body>
+</html>
